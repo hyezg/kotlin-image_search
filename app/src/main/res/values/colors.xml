@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_main">#5907EC</color>
+    <color name="blue_search">#2196F3</color>
+    <color name="white_edit">#E5E5E5</color>
+    <color name="gray_search">#A7A7A7</color>
 </resources>
