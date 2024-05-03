@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="10dp"
-        android:text="이미지 검색"
-        android:background="@drawable/btn_main"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom">
 
-    <Button
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:text="내 보관함"
-        android:background="@drawable/btn_main"/>
+        <Button
+            android:id="@+id/btn_imageSearch"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/btn_main"
+            android:text="@string/imageSearch"
+            app:layout_constraintBottom_toBottomOf="@id/layout_bottom"
+            app:layout_constraintStart_toStartOf="@id/layout_bottom"
+            app:layout_constraintTop_toTopOf="@id/layout_bottom" />
 
+        <Button
+            android:id="@+id/btn_myBox"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/btn_main"
+            android:text="@string/myBox"
+            app:layout_constraintBottom_toBottomOf="@id/layout_bottom"
+            app:layout_constraintEnd_toEndOf="@id/layout_bottom"
+            app:layout_constraintTop_toTopOf="@id/layout_bottom" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
