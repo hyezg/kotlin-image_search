@@ -12,7 +12,8 @@
         android:layout_gravity="bottom|left"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="10dp"
-        android:text="이미지 검색" />
+        android:text="이미지 검색"
+        android:background="@drawable/btn_main"/>
 
     <Button
         android:layout_width="185dp"
@@ -20,6 +21,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
-        android:text="내 보관함" />
+        android:text="내 보관함"
+        android:background="@drawable/btn_main"/>
 
 </FrameLayout>
