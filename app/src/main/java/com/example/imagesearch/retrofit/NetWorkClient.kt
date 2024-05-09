@@ -12,6 +12,7 @@ object NetWorkClient {
 
     //서비스 URL
     private const val IMAGE_BASE_URL = "https://dapi.kakao.com/v2/search/image"
+    private const val API_KEY = "49f21a3e387c2a825f6c3393d00b94cc"
 
     private fun createOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
@@ -37,6 +38,6 @@ object NetWorkClient {
         .build()
 
     //네트워크 인터페이스 타입
-    val imageNetWork: NetWorkInterface = imageRetrofit.create(NetWorkInterface::class.java)
+    val kakaoSearch: NetWorkInterface = imageRetrofit.create(NetWorkInterface::class.java)
 
 }

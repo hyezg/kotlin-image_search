@@ -1,15 +1,17 @@
-package com.example.imagesearch
+package com.example.imagesearch.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.imagesearch.databinding.FragmentImageSearchBinding
+import com.example.imagesearch.databinding.FragmentStorageBinding
 
 
-class ImageSearchFragment : Fragment() {
-    private lateinit var binding: FragmentImageSearchBinding
+class StorageFragment : Fragment() {
+
+    private var _binding: FragmentStorageBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +22,13 @@ class ImageSearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentImageSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentStorageBinding.inflate(inflater, container, false)
         return binding.root
     }
 
 
-    fun search() {
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

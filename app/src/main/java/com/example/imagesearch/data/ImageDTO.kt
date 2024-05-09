@@ -2,34 +2,25 @@ package com.example.imagesearch.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Image(val response: ImageResponse)
-
-data class ImageListResponse(
-    @SerializedName("documents") val documents: List<ImageResponse>
-
-)
-
 data class ImageResponse(
-    @SerializedName("thumbnail_url") val thumbnailUrl: String,
-    @SerializedName("display_sitename") val sitename: String,
-    @SerializedName("datetime") val date: String
+    @SerializedName("meta") val meta: Meta,
+    @SerializedName("documents") val documents: List<Document>
+) {
 
-)
+    data class Meta(
+        @SerializedName("total_count") val totalCount: Int,
+        @SerializedName("pageable_count") val pageableCount: Int,
+        @SerializedName("is_end") val isEnd: Boolean
+    )
 
-data class ImageItem (
-    val collection: String,
-    val width: Integer,
-    val height: Integer,
-    val thumbnailUrl: String,
-    val date: String,
-    val sitename: String
-)
-
-data class SaveData (
-    val collection: String,
-    val width: Integer,
-    val height: Integer,
-    val thumbnailUrl: String,
-    val date: String,
-    val sitename: String
-)
+    data class Document(
+        @SerializedName("collection") val collection: String,
+        @SerializedName("thumbnail_url") val thumbnailUrl: String,
+        @SerializedName("image_url") val imageUrl: String,
+        @SerializedName("width") val width: Int,
+        @SerializedName("height") val height: Int,
+        @SerializedName("display_sitename") val displaySiteName: String,
+        @SerializedName("doc_url") val docUrl: String,
+        @SerializedName("datetime") val datetime: String
+    )
+}
