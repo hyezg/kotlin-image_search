@@ -30,15 +30,19 @@
             app:layout_constraintStart_toStartOf="@id/layout_top"
             app:layout_constraintTop_toTopOf="@id/layout_top" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_search"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:background="@drawable/btn_search"
             android:backgroundTint="@color/blue_search"
             android:text="@string/search"
+            android:textColor="@color/white"
             android:textSize="16sp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="@id/layout_top"
             app:layout_constraintEnd_toEndOf="@id/layout_top"
             app:layout_constraintTop_toTopOf="@id/layout_top" />
@@ -46,16 +50,17 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_searchResult"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="80dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_top"
-        tools:listitem="@layout/item_image"
-        >
+        tools:listitem="@layout/item_image">
 
 
     </androidx.recyclerview.widget.RecyclerView>

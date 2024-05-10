@@ -1,60 +1,93 @@
 package com.example.imagesearch.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.imagesearch.data.ImageResponse
+import com.bumptech.glide.Glide
+import com.example.imagesearch.SearchItemModel
+import com.example.imagesearch.Utils.getDateFromTimestampWithFormat
 import com.example.imagesearch.databinding.ItemImageBinding
+import com.example.imagesearch.presentation.MainActivity
 
-class ImageSearchAdapter :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    //뷰바인딩
-    private lateinit var binding: ItemImageBinding
+//이미지 검색 결과를 표시하는 어댑터 클래스
+class ImageSearchAdapter(private val mContext: Context) :
+    RecyclerView.Adapter<ImageSearchAdapter.ItemViewHolder>() {
 
-    val imageData = listOf<ImageResponse.Document>()
+    //val imageData = listOf<ImageResponse.Document>()
 
-    //클릭 이벤트 추가 부분
-    interface ItemClick {
-        fun onClick(view: View, position: Int)
+    //isLike 포함된 데이터 클래스 가져옴
+    var items = ArrayList<SearchItemModel>()
+
+    //아이템 목록을 초기화하는 메서드
+    fun clearItem() {
+        items.clear()  //데이터 지움
+        notifyDataSetChanged() //데이터 새로 고침
     }
 
-    var itemClick: ItemClick? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         var binding = ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ImageViewHolder(binding)
+        return ItemViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return imageData.size  //리스트의 크기
-    }
+    //onBindViewHodler에서 뭐 하는지 찾기
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val currentItem = items[position]
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //클릭 이벤트 추가 부분
-        //item 클릭하면 하트 이미지가 보임?? -> invisible을 visible 로 변경
-        holder.itemView.setOnClickListener {
-            itemClick?.onClick(it, position) //아이템 클릭시 onClick 함수 실행됨.
-            if (!binding.itemHeart.isVisible) {
-                binding.itemHeart.isVisible = true
-            }
+        Glide.with(mContext)
+            .load(currentItem.url)
+            .into(holder.iv_thum_image)
+
+        holder.apply {
+            iv_like.visibility = if (currentItem.isLike) View.VISIBLE else View.INVISIBLE
+            tv_title.text = currentItem.title
+            holder.tv_datetiem.text = getDateFromTimestampWithFormat(
+                currentItem.dateTime,
+                "yyyy-MM-dd'T'HH:mm.SSS+09:00",
+                "yyyy--MM-dd HH:mm:ss"
+            )
         }
-        val holder = holder as ImageViewHolder
-        holder.bind(imageData[position])
     }
+
+    override fun getItemCount(): Int = items.size
 
 
     //item ViewHolder 생성
-    class ImageViewHolder(private var binding: ItemImageBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(images: ImageResponse.Document) {
-            binding.apply {
-                itemImage.text = images.thumbnailUrl
-                itemDate.text = images.datetime
-                itemSitename.text = images.displaySiteName
-            }
+    // 각 항목 클릭 시 발생하는 이벤트를 처리하는 메서드
+    inner class ItemViewHolder(binding: ItemImageBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        var iv_thum_image = binding.itemImage
+        var iv_like = binding.itemLike
+        var tv_title = binding.itemSitename
+        var tv_datetiem = binding.itemDate
+        var cl_thumb_item = binding.clThumbItem //전체 레이아웃 이름
+
+        //this의 의미 알아보기
+        init {
+            iv_like.visibility = View.GONE
+            iv_thum_image.setOnClickListener(this)
+            cl_thumb_item.setOnClickListener(this)
         }
+
+        override fun onClick(view: View) {
+            //position알아보기. takeIf
+            val position = adapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return
+            val item = items[position]
+
+            item.isLike != item.isLike
+
+            //아이템이 클릭되서 좋아요가 true라면 add 아니면 remove ?
+            if (item.isLike) {
+                (mContext as MainActivity).addLikedItem(item)
+            } else {
+                (mContext as MainActivity).removeLikedItem(item)
+            }
+            notifyItemChanged(position)
+        }
+
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.imagesearch.retrofit
 
 
 //import com.example.imagesearch.BuildConfig
+import com.example.imagesearch.Constats
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,10 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object NetWorkClient {
-
-    //서비스 URL
-    private const val IMAGE_BASE_URL = "https://dapi.kakao.com/v2/search/image"
-    private const val API_KEY = "49f21a3e387c2a825f6c3393d00b94cc"
 
     private fun createOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
@@ -32,7 +29,7 @@ object NetWorkClient {
     }
 
     private val imageRetrofit = Retrofit.Builder()
-        .baseUrl(IMAGE_BASE_URL)
+        .baseUrl(Constats.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(createOkHttpClient())
         .build()
