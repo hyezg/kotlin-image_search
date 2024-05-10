@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.imagesearch.data.ImageResponse
-import com.example.imagesearch.data.SearchRepositoryImpl
+import com.example.imagesearch.data.ImageSearchEntity
 import com.example.imagesearch.retrofit.NetWorkClient
 import com.example.imagesearch.retrofit.NetWorkInterface
 import kotlinx.coroutines.launch
-import com.example.imagesearch.repository.SearchRepository
 
 class SearchViewModel(
-    private val kakaoSearch: NetWorkInterface, private val searchRepository: SearchRepository
+    private val kakaoSearch: NetWorkInterface
 ) : ViewModel() {
 
     //viewModel에서 liveData에 값 세팅
@@ -25,7 +24,7 @@ class SearchViewModel(
     fun getKakaoList() {
         viewModelScope.launch {
             _kakaoList.value =
-                kakaoSearch.getImage("사과").documents
+                kakaoSearch.getImage("사과","",1,1).documents
 
         }
     }
@@ -33,7 +32,7 @@ class SearchViewModel(
 
     //수업에서 가져온 것
     //좋아요 누른 아이템
-    /*fun setFavoriteItem(item: ImageSearchEntity) {
+    fun setFavoriteItem(item: ImageSearchEntity) {
         //toMutableList 수정가능 한 List로 변경
         val kakaoList = _kakaoList.value!!.toMutableList()
 
@@ -41,7 +40,7 @@ class SearchViewModel(
         val position = kakaoList.indexOfFirst {
             it.thumbnailUrl == item.thumbnailUrl
         }
-        /
+
         _kakaoList.value =
                 //livedata에서 받아온 list를 index으로 sorting해서 data class copy함 (data class의 객체를 복사)
             kakaoList.also {
@@ -55,10 +54,9 @@ class SearchViewModel(
         _kakaoList.value = kakaoList.filter {
             it.isFavorite
         }
-    }*/
+    }
 }
 
-/*
 class SearchViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(
         modelClass: Class<T>,
@@ -67,16 +65,5 @@ class SearchViewModelFactory : ViewModelProvider.Factory {
         return SearchViewModel(NetWorkClient.kakaoSearch) as T
     }
 
-}*/
-
-class GitHubUserViewModelFactory : ViewModelProvider.Factory {
-    private val repository = SearchRepositoryImpl(NetWorkClient.kakaoSearch)
-    override fun <T : ViewModel> create(
-        modelClass: Class<T>,
-        extras: CreationExtras
-    ): T {
-        return SearchViewModel(
-            repository
-        ) as T
-    }
 }
+

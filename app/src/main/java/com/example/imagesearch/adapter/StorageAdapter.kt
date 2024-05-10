@@ -17,7 +17,6 @@ class StorageAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var binding = ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StorageViewHolder(binding)
-
     }
 
     override fun getItemCount(): Int {
@@ -32,6 +31,7 @@ class StorageAdapter :
 
     class StorageViewHolder(private var binding: ItemImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        //좋아요가  isvisible 상태이면 데이터 넣기?
         fun bind(images: ImageResponse.Document) {
             binding.apply {
                 if (binding.itemHeart.isVisible) {
@@ -42,6 +42,4 @@ class StorageAdapter :
             }
         }
     }
-
-
 }

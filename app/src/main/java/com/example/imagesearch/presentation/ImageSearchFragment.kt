@@ -11,11 +11,11 @@ import com.example.imagesearch.adapter.ImageSearchAdapter
 
 
 class ImageSearchFragment : Fragment() {
-    //바인딩
+    //뷰바인딩
     private var _binding: FragmentImageSearchBinding? = null
     private val binding get() = _binding!!
 
-    //뷰모델. (gradle 에 추가해야함fragment 어쩌고)
+    //뷰모델. (gradle 에 추가해야함)
     private val searchViewModel: SearchViewModel by activityViewModels()
 
     //어뎁터
@@ -23,11 +23,10 @@ class ImageSearchFragment : Fragment() {
         ImageSearchAdapter()
     }
 
-    //액티비티에서 접근할 수 있도록?
+    //액티비티에서 접근할 수 있도록
     companion object {
         fun newInstance() = StorageFragment()
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

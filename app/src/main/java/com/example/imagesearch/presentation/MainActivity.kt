@@ -36,6 +36,7 @@ abstract class MainActivity : AppCompatActivity() {
         btnClick()
     }
 
+    //버튼 누르면 프레그먼트가 보임
     fun btnClick() {
         //이미지 검색 버튼 누르면 fragment
         binding.btnImageSearch.setOnClickListener {

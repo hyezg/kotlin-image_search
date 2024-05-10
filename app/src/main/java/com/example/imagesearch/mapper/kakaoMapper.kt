@@ -12,7 +12,7 @@ fun ImageResponse.toEntity() = ImageSearchListEntity(
 fun List<ImageResponse>.asImageSearchEntity(): List<ImageSearchEntity> {
     return map {
         ImageSearchEntity(
-            it.datetime
+            it.thumbnailUrl
 
         )
     }
